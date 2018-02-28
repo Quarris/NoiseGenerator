@@ -17,16 +17,13 @@ public class Main extends JFrame {
         Main window = new Main(1000, 1000);
         window.setTitle("Noise");
 
-        NoiseGenerator gen = new NoiseGenerator(23652345L);
-        NoiseGenerator gen1 = new NoiseGenerator(18245719L);
+        NoiseGenerator gen = new NoiseGenerator(0L);
 
         float[][] whiteNoise1 = gen.genWhiteNoiseMap(window.width, window.height);
-        float[][] whiteNoise2 = gen1.genWhiteNoiseMap(window.width, window.height);
-        float[][] treeNoise = gen.genPerlinNoise(whiteNoise1, 2, 0.2f, 1.0f);
+        float[][] treeNoise = gen.genWhiteNoiseMap(window.width, window.height);
         float[][] tileNoise = gen.genPerlinNoise(whiteNoise1, 5, 0.4f, 1.0f);
         float[][] biomeNoise = gen.genPerlinNoise(whiteNoise1, 7, 0.2f, 1.0f);
-        NoisePanel panel = new NoisePanel(tileNoise, biomeNoise, treeNoise,  1);
+        NoisePanel panel = new NoisePanel(tileNoise, biomeNoise, treeNoise,  2);
         window.add(panel);
-
     }
 }
