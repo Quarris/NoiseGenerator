@@ -23,7 +23,8 @@ public class Main extends JFrame {
         float[][] treeNoise = gen.genWhiteNoiseMap(window.width, window.height);
         float[][] tileNoise = gen.genPerlinNoise(whiteNoise1, 5, 0.4f, 1.0f);
         float[][] biomeNoise = gen.genPerlinNoise(whiteNoise1, 7, 0.2f, 1.0f);
-        NoisePanel panel = new NoisePanel(tileNoise, biomeNoise, treeNoise,  2);
-        window.add(panel);
+        World world = new World(tileNoise, biomeNoise, treeNoise,  2);
+        window.addKeyListener(new InputHandler(world));
+        window.add(world);
     }
 }
