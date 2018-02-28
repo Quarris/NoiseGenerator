@@ -1,11 +1,4 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.AncestorListener;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.Buffer;
 
 public class Main extends JFrame {
 
@@ -21,7 +14,7 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main window = new Main(1000, 1000);
+        Main window = new Main(2500, 2500);
         window.setTitle("Noise");
 
         NoiseGenerator gen = new NoiseGenerator(0L);
@@ -30,8 +23,8 @@ public class Main extends JFrame {
         float[][] whiteNoise1 = gen.genWhiteNoiseMap(window.width, window.height);
         float[][] whiteNoise2 = gen1.genWhiteNoiseMap(window.width, window.height);
         float[][] treeNoise = gen.genPerlinNoise(whiteNoise1, 2, 0.2f, 1.0f);
-        float[][] tileNoise = gen.genPerlinNoise(whiteNoise1, 6, 0.4f, 1.0f);
-        float[][] biomeNoise = gen.genPerlinNoise(whiteNoise2, 7, 0.01f, 1.0f);
+        float[][] tileNoise = gen.genPerlinNoise(whiteNoise1, 5, 0.4f, 1.0f);
+        float[][] biomeNoise = gen.genPerlinNoise(whiteNoise1, 7, 0.2f, 1.0f);
         NoisePanel panel = new NoisePanel(tileNoise, biomeNoise, treeNoise,  1);
         window.add(panel);
 

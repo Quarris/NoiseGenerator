@@ -13,6 +13,10 @@ public class NoisePanel extends JPanel {
     private static final Color SNOW = new Color(0xd6d6d6);
     private static final Color TREE = new Color(0x034704);
 
+    private static final int BIOME_NORMAL = 0;
+    private static final int BIOME_SWAMP = 1;
+    private static final int BIOME_OCEAN = 2;
+
 
     private float[][] tileMap;
     private float[][] biomeMap;
@@ -41,18 +45,44 @@ public class NoisePanel extends JPanel {
         for (int y = 0; y < tileMap.length; y++) {
             for (int x = 0; x < tileMap[y].length; x++) {
                 int height = (int) (tileMap[x][y] * 100);
-                boolean isSwamp = biomeMap != null && biomeMap[x][y] < 0.5f;
-                boolean genTree = treeMap != null && treeMap[x][y] > 0.85f;
-                if (height < 40) {
-                    g.setColor(!isSwamp ? WATER_NORMAL : WATER_SWAMP);
-                } else if (height < 50) {
-                    g.setColor(!isSwamp ? SAND_NORMAL : SAND_NORMAL);
-                } else if (height < 70) {
-                    g.setColor(!isSwamp ? GRASS_NORMAL : GRASS_SWAMP);
-                } else if (height < 87 && !isSwamp) {
-                    g.setColor(ROCK);
-                } else if (!isSwamp) {
-                    g.setColor(SNOW);
+                int biome = BIOME_NORMAL;
+                if (biomeMap != null) {
+                    biome = getBiome(biomeMap, x, y);
+                }
+                switch (biome) {
+                    case BIOME_NORMAL: {
+                        if (height < 40) {
+                            g.setColor(WATER_NORMAL);
+                        } else if (height < 50) {
+                            g.setColor(SAND_NORMAL);
+                        } else if (height < 70) {
+                            g.setColor(GRASS_NORMAL);
+                        } else if (height < 87) {
+                            g.setColor(ROCK);
+                        } else
+                            g.setColor(SNOW);
+                        }
+                        break;
+                    case BIOME_SWAMP: {
+                        if (height < 40) {
+                            g.setColor(WATER_SWAMP);
+                        } else if (height < 50) {
+                            g.setColor(SAND_NORMAL);
+                        } else
+                            g.setColor(GRASS_SWAMP);
+                        break;
+                    }
+
+                    case BIOME_OCEAN: {
+                        if (height < 90) {
+                            g.setColor(WATER_NORMAL);
+                        } else if (height < 92){
+                            g.setColor(SAND_NORMAL);
+                        } else
+                            g.setColor(GRASS_NORMAL);
+                        break;
+                    }
+
                 }
                 g.fillRect(x * size, y * size, size, size);
             }
@@ -60,13 +90,22 @@ public class NoisePanel extends JPanel {
         for (int y = 0; y < tileMap.length; y++) {
             for (int x = 0; x < tileMap[y].length; x++) {
                 int height = (int) (tileMap[x][y] * 100);
-                boolean isSwamp = biomeMap != null && biomeMap[x][y] < 0.5f;
-                boolean genTree = treeMap != null && treeMap[x][y] > 0.8f;
-                if (height >= 50 && height < 70 && genTree) {
+                int biome = getBiome(biomeMap, x, y);
+                boolean genTree = treeMap != null && treeMap[x][y] > 0.85f && getBiome(biomeMap, x, y) != BIOME_OCEAN;
+                if (genTree && ((biome == BIOME_NORMAL && height >= 50 && height < 70) || (biome == BIOME_SWAMP && height >= 50))) {
                     g.setColor(TREE);
                     g.fillOval(x, y, 2, 2);
                 }
             }
         }
+    }
+
+    public int getBiome(float[][] biomeMap, int x, int y) {
+        if (biomeMap[x][y] < 0.5f) {
+            return BIOME_OCEAN;
+        } else if (biomeMap[x][y] < 0.8f) {
+            return BIOME_NORMAL;
+        } else
+            return BIOME_SWAMP;
     }
 }
