@@ -14,10 +14,10 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main window = new Main(2500, 2500);
+        Main window = new Main(1000, 1000);
         window.setTitle("Noise");
 
-        NoiseGenerator gen = new NoiseGenerator(0L);
+        NoiseGenerator gen = new NoiseGenerator(23652345L);
         NoiseGenerator gen1 = new NoiseGenerator(18245719L);
 
         float[][] whiteNoise1 = gen.genWhiteNoiseMap(window.width, window.height);
