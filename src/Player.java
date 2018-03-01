@@ -7,12 +7,16 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.world = world;
     }
 
     public void setPos(int x, int y) {
-        this.x = x;
-        this.y = y;
+        if (x < world.getWorldSize().width && x >=0)
+            this.x = x;
+
+        if (y < world.getWorldSize().height && y >= 0)
+            this.y = y;
+
+        world.getCam().adjust();
     }
 
     public void move(int movX, int movY) {

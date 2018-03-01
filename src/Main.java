@@ -14,10 +14,10 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main window = new Main(1000, 1000);
+        Main window = new Main(2000, 2000);
         window.setTitle("Noise");
 
-        NoiseGenerator gen = new NoiseGenerator(0L);
+        NoiseGenerator gen = new NoiseGenerator(Long.parseLong(JOptionPane.showInputDialog("Insert Integer Seed: ")));
 
         float[][] whiteNoise1 = gen.genWhiteNoiseMap(window.width, window.height);
         float[][] treeNoise = gen.genWhiteNoiseMap(window.width, window.height);
@@ -26,5 +26,6 @@ public class Main extends JFrame {
         World world = new World(tileNoise, biomeNoise, treeNoise,  2);
         window.addKeyListener(new InputHandler(world));
         window.add(world);
+        world.repaint();
     }
 }

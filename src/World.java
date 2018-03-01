@@ -23,6 +23,7 @@ public class World extends JPanel {
     private float[][] biomeMap;
     private float[][] treeMap;
     private int size;
+    private float worldScale = 1;
 
     public World(float[][] tileMap, int size) {
         this(tileMap, null, null, size);
@@ -37,6 +38,10 @@ public class World extends JPanel {
         this.biomeMap = biomeMap;
         this.treeMap = treeMap;
         this.size = size;
+    }
+
+    public Dimension getWorldSize() {
+        return new Dimension(tileMap.length, tileMap[0].length);
     }
 
 
@@ -71,33 +76,32 @@ public class World extends JPanel {
                 g.fillRect(player.x * size - size, player.y * size - size, size * 2, size * 2);
             }
         } else {
-            for (int y = (int)cam.y; y < cam.height; y++) {
-                for (int x = (int)cam.x; x < cam.width; x++) {
-                    size = 10;//getWidth() / cam.width > getHeight() / cam.height ?
-                            //(int)(getWidth()/cam.width) : (int)(getHeight()/cam.height);
+            for (int y = (int)cam.y; y < (((cam.y + cam.height) <= getWorldSize().height) ? (cam.y + cam.height) : getWorldSize().height); y++) {
+                for (int x = (int)cam.x; x < (((cam.x + cam.width) <= getWorldSize().width) ? (cam.x + cam.width) : getWorldSize().width); x++) {
+                    size = (int)worldScale;
                     int biome = BIOME_NORMAL;
                     if (biomeMap != null) {
                         biome = getBiome(biomeMap, x, y);
                     }
                     Color tile = getTile(tileMap, biome, x, y);
                     g.setColor(tile);
-                    g.fillRect(x * size, y * size, size, size);
+                    g.fillRect((int)(x - cam.x) * size, (int)(y - cam.y) * size, size, size);
                 }
             }
-            for (int y = (int)cam.y; y < cam.height; y++) {
-                for (int x = (int)cam.x; x < cam.width; x++) {
+            for (int y = (int)cam.y; y < (((cam.y + cam.height) <= getWorldSize().height) ? (cam.y + cam.height) : getWorldSize().height); y++) {
+                for (int x = (int)cam.x; x < (((cam.x + cam.width) <= getWorldSize().width) ? (cam.x + cam.width) : getWorldSize().width); x++) {
                     int height = (int) (tileMap[x][y] * 100);
                     int biome = getBiome(biomeMap, x, y);
                     boolean genTree = treeMap != null && treeMap[x][y] > 0.9f && getBiome(biomeMap, x, y) != BIOME_OCEAN;
                     if (genTree && ((biome == BIOME_NORMAL && height >= 50 && height < 70) || (biome == BIOME_SWAMP && height >= 50))) {
                         g.setColor(TREE);
-                        g.fillOval(x * size, y * size, size + 1, size + 1);
+                        g.fillOval((int)(x - cam.x) * size, (int)(y - cam.y) * size, size + 1, size + 1);
                     }
                 }
             }
             if (player != null) {
                 g.setColor(Color.RED);
-                g.fillRect(player.x * size - size, player.y * size - size, size * 2, size * 2);
+                g.fillRect((int)(player.x - cam.x) * size - size, (int)(player.y - cam.y) * size - size, size * 2, size * 2);
             }
         }
     }
@@ -105,11 +109,21 @@ public class World extends JPanel {
     public void createPlayer(Player player) {
         this.player = player;
         player.setWorld(this);
-        this.cam = new Camera(player, 20, 20);
+        this.cam = new Camera(player, this.getWidth() / worldScale, this.getHeight() / worldScale);
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Camera getCam() {
+        return cam;
+    }
+
+    public void setWorldScale(float worldScale) {
+        this.worldScale = worldScale;
+        getCam().width = this.getWidth() / worldScale;
+        getCam().height = this.getHeight() / worldScale;
     }
 
     public int getBiome(float[][] biomeMap, int x, int y) {

@@ -13,26 +13,38 @@ public class InputHandler implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyChar()) {
+            case 'k':
+                world.setWorldScale(Integer.parseInt(JOptionPane.showInputDialog("Set World Scale: ")));
+                world.getCam().adjust();
+                break;
             case 'w':
-
+                world.getPlayer().move(0, -1);
+                System.out.println(world.getPlayer().x + ", " + world.getPlayer().y);
                 break;
             case 's':
+                world.getPlayer().move(0, 1);
+                System.out.println(world.getPlayer().x + ", " + world.getPlayer().y);
+
                 break;
             case 'a':
+                world.getPlayer().move(-1, 0);
+                System.out.println(world.getPlayer().x + ", " + world.getPlayer().y);
+
                 break;
             case 'd':
+                world.getPlayer().move(1, 0);
+                System.out.println(world.getPlayer().x + ", " + world.getPlayer().y);
                 break;
-            case ' ': {
-                System.out.println("Pressed Space First");
+            case ' ':
                 int x = Integer.parseInt(JOptionPane.showInputDialog("Position X: "));
                 int y = Integer.parseInt(JOptionPane.showInputDialog("Position Y: "));
                 Player newPlayer = new Player("Potato");
                 newPlayer.x = x;
                 newPlayer.y = y;
                 world.createPlayer(newPlayer);
-                System.out.println("Pressed Space Last");
+                 break;
+            default:
                 break;
-            }
         }
         System.out.println("Pressed Key " + e + " - " + e.getKeyCode());
         world.repaint();

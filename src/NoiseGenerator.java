@@ -16,7 +16,7 @@ public class NoiseGenerator {
         float[][] noiseMap = new float[mapWidth][mapHeight];
         for (int y = 0; y < mapHeight; y++) {
             for (int x = 0; x < mapWidth; x++) {
-                noiseMap[x][y] = rand.nextFloat() % 1;
+                noiseMap[x][y] = rand.nextFloat();
             }
         }
         return noiseMap;
