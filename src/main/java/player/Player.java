@@ -1,7 +1,7 @@
-package player;
+package main.java.player;
 
-import world.AbstractWorld;
-import world.PerlinWorld;
+import main.java.world.AbstractWorld;
+import main.java.world.PerlinWorld;
 
 public class Player {
 

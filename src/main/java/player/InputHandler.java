@@ -1,7 +1,6 @@
-package player;
+package main.java.player;
 
-import player.Player;
-import world.AbstractWorld;
+import main.java.world.AbstractWorld;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -19,7 +18,7 @@ public class InputHandler implements KeyListener {
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyChar()) {
             case 'k':
-                world.setWorldScale(Integer.parseInt(JOptionPane.showInputDialog("Set world.PerlinWorld Scale: ")));
+                world.setWorldScale(Integer.parseInt(JOptionPane.showInputDialog("Set java.java.worldmain.PerlinWorld Scale: ")));
                 world.getCam().adjust();
                 break;
             case 'w':

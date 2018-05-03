@@ -1,6 +1,4 @@
-package noise;
-
-import javafx.animation.Interpolator;
+package main.java.noise;
 
 import java.util.Random;
 

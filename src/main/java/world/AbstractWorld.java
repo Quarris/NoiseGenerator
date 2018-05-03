@@ -1,9 +1,8 @@
-package world;
-
-import player.Camera;
-import player.Player;
+package main.java.world;
 
 import javax.swing.*;
+import main.java.player.Camera;
+import main.java.player.Player;
 
 public abstract class AbstractWorld extends JPanel {
 

@@ -1,7 +1,8 @@
-import noise.SimplexNoise;
-import player.InputHandler;
-import sun.java2d.pipe.SpanShapeRenderer;
-import world.SimplexWorld;
+package main.java;
+
+import main.java.player.InputHandler;
+import main.java.tiles.Tiles;
+import main.java.world.SimplexWorld;
 
 import javax.swing.*;
 
@@ -19,6 +20,7 @@ public class NoiseGenerator extends JFrame {
     }
 
     public static void main(String[] args) {
+        Tiles.init();
         NoiseGenerator window = new NoiseGenerator(2000, 2000);
         window.setTitle("Noise");
 
@@ -28,7 +30,7 @@ public class NoiseGenerator extends JFrame {
         float[][] tileNoise = gen.genPerlinNoise(whiteNoise1, 5, 0.4f, 1.0f);
         float[][] biomeNoise = gen.genPerlinNoise(whiteNoise1, 7, 0.2f, 1.0f);
 
-        world.PerlinWorld world = new world.PerlinWorld(tileNoise, biomeNoise, treeNoise,  2);
+        java.java.worldmain.PerlinWorld java.java.world = new java.java.PerlinWorlderlinWorld(tileNoise, biomeNoise, treeNoise,  2);
         */
         SimplexWorld world = new SimplexWorld(Long.parseLong(JOptionPane.showInputDialog("Insert Integer Seed: ")));
         window.addKeyListener(new InputHandler(world));

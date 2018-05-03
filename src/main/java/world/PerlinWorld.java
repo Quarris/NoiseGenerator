@@ -1,4 +1,4 @@
-package world;
+package main.java.world;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package noise;
+package main.java.noise;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 /*
- * A speed-improved simplex noise algorithm for 2D, 3D and 4D in Java.
+ * A speed-improved simplex java.java.noise algorithm for 2D, 3D and 4D in Java.
  *
  * Based on example code by Stefan Gustavson (stegu@itn.liu.se).
  * Optimisations by Peter Eastman (peastman@drizzle.stanford.edu).
@@ -49,8 +49,8 @@ public class SimplexNoise {
             49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254,
             138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180};
     // To remove the need for index wrapping, double the permutation table length
-    private static short perm[] = new short[512];
-    private static short permMod12[] = new short[512];
+    private short perm[] = new short[512];
+    private short permMod12[] = new short[512];
 
     public SimplexNoise(long seed) {
         List<Short> permutations = new ArrayList<>();
@@ -92,7 +92,7 @@ public class SimplexNoise {
     }
 
 
-    // 2D simplex noise
+    // 2D simplex java.java.noise
     public double noise(double xin, double yin) {
         double n0, n1, n2; // Noise contributions from the three corners
         // Skew the input space to determine which simplex cell we're in
@@ -147,13 +147,13 @@ public class SimplexNoise {
             t2 *= t2;
             n2 = t2 * t2 * dot(grad3[gi2], x2, y2);
         }
-        // Add contributions from each corner to get the final noise value.
+        // Add contributions from each corner to get the final java.java.noise value.
         // The result is scaled to return values in the interval [-1,1].
         return 70.0 * (n0 + n1 + n2);
     }
 
 
-    // 3D simplex noise
+    // 3D simplex java.java.noise
     public double noise(double xin, double yin, double zin) {
         double n0, n1, n2, n3; // Noise contributions from the four corners
         // Skew the input space to determine which simplex cell we're in
@@ -269,13 +269,13 @@ public class SimplexNoise {
             t3 *= t3;
             n3 = t3 * t3 * dot(grad3[gi3], x3, y3, z3);
         }
-        // Add contributions from each corner to get the final noise value.
+        // Add contributions from each corner to get the final java.java.noise value.
         // The result is scaled to stay just inside [-1,1]
         return 32.0 * (n0 + n1 + n2 + n3);
     }
 
 
-    // 4D simplex noise, better simplex rank ordering method 2012-03-09
+    // 4D simplex java.java.noise, better simplex rank ordering method 2012-03-09
     public double noise(double x, double y, double z, double w) {
 
         double n0, n1, n2, n3, n4; // Noise contributions from the five corners

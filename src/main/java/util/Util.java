@@ -1,12 +1,12 @@
-package util;
+package main.java.util;
 
 public class Util {
 
     /**
      * Scrambles a seed in a predictable, always-equal, but seemingly random
      * way, making the output seem like a completely different number. This can
-     * be used for world generation when you need a different seed that,
-     * nevertheless, should still be influenced by the world's seed. To scramble
+     * be used for java.java.world generation when you need a different seed that,
+     * nevertheless, should still be influenced by the java.java.world's seed. To scramble
      * a seed based on some other value, see {@link #scrambleSeed(int, long)}.
      *
      * @param l The long to scramble
@@ -24,8 +24,8 @@ public class Util {
 
     /**
      * Scrambles an x and a y value together into a seed that can be used for
-     * world gen. Note that this is not influenced by another seed. Obviously,
-     * these values do not have to be actual positions in the world, but can
+     * java.java.world gen. Note that this is not influenced by another seed. Obviously,
+     * these values do not have to be actual positions in the java.java.world, but can
      * just be two arbitrary numbers.
      *
      * @param x The x value
@@ -38,7 +38,7 @@ public class Util {
     }
 
     /**
-     * Scrambles a single value into a seed that can be used for world gen. Note
+     * Scrambles a single value into a seed that can be used for java.java.world gen. Note
      * that this is not influenced by another seed.
      *
      * @param i The value
@@ -51,8 +51,8 @@ public class Util {
 
     /**
      * Scrambles an x and a y value into a seed based on a different seed. This
-     * can be used for world gen. Obviously, these values do not have to be
-     * actual positions in the world, but can just be two arbitrary numbers.
+     * can be used for java.java.world gen. Obviously, these values do not have to be
+     * actual positions in the java.java.world, but can just be two arbitrary numbers.
      *
      * @param x    The x value
      * @param y    The y value
@@ -66,7 +66,7 @@ public class Util {
 
     /**
      * Scrambles a value into a seed based on a different seed. This can be used
-     * for world gen.
+     * for java.java.world gen.
      *
      * @param i    The value
      * @param seed The original seed

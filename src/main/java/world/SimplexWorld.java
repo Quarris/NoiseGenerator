@@ -1,4 +1,4 @@
-package world;
+package main.java.world;
 
 import java.awt.*;
 
@@ -7,9 +7,11 @@ public class SimplexWorld extends AbstractWorld {
     private long seed;
     private final int LOADED_CHUNK_SIZE = 7;
     protected Chunk[] loadedChunks;
+    protected main.java.assets.Graphics graphics;
 
     public SimplexWorld(long seed) {
         this.seed = seed;
+        graphics = new main.java.assets.Graphics(getGraphics());
         loadedChunks = new Chunk[LOADED_CHUNK_SIZE*LOADED_CHUNK_SIZE];
         for (int x = 0; x < LOADED_CHUNK_SIZE; x++) {
             for (int y = 0; y < LOADED_CHUNK_SIZE; y++) {
@@ -20,14 +22,13 @@ public class SimplexWorld extends AbstractWorld {
 
     @Override
     protected void paintComponent(Graphics g) {
-        int size = 10;
-        float divider = 25f;
+        graphics.setGraphics(g);
+        int size = 2;
         super.paintComponent(g);
         for (Chunk chunk : loadedChunks) {
             for (int x = 0; x < Chunk.CHUNK_SIZE; x++) {
                 for (int y = 0; y < Chunk.CHUNK_SIZE; y++) {
-                    g.setColor(chunk.getTile(x, y).getColor());
-                    g.fillRect((chunk.getX()*Chunk.CHUNK_SIZE + x)*size, (chunk.getY()*Chunk.CHUNK_SIZE + y)*size, size, size);
+                    chunk.getTile(x, y).getRenderer().render(graphics, (chunk.getX()*Chunk.CHUNK_SIZE+x)*size, (chunk.getY()*Chunk.CHUNK_SIZE+y)*size, chunk.getTile(x, y), size);
                 }
             }
         }
