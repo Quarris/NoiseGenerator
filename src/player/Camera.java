@@ -1,3 +1,5 @@
+package player;
+
 public class Camera {
 
     public float x, y, width, height;

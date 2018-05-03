@@ -1,7 +1,8 @@
-import javax.swing.*;
+package world;
+
 import java.awt.*;
 
-public class World extends JPanel {
+public class PerlinWorld extends AbstractWorld {
 
     private static final Color WATER_NORMAL = new Color(0x2a70e0);
     private static final Color WATER_SWAMP = new Color(0x316640);
@@ -12,9 +13,6 @@ public class World extends JPanel {
     private static final Color SNOW = new Color(0xd6d6d6);
     private static final Color TREE = new Color(0x034704);
 
-    private Player player;
-    private Camera cam;
-
     private static final int BIOME_NORMAL = 0;
     private static final int BIOME_SWAMP = 1;
     private static final int BIOME_OCEAN = 2;
@@ -23,17 +21,16 @@ public class World extends JPanel {
     private float[][] biomeMap;
     private float[][] treeMap;
     private int size;
-    private float worldScale = 1;
 
-    public World(float[][] tileMap, int size) {
+    public PerlinWorld(float[][] tileMap, int size) {
         this(tileMap, null, null, size);
     }
 
-    public World(float[][] tileMap, float[][] biomeMap, int size) {
+    public PerlinWorld(float[][] tileMap, float[][] biomeMap, int size) {
         this(tileMap, biomeMap, null, size);
     }
 
-    public World(float[][] tileMap, float[][] biomeMap, float[][] treeMap, int size) {
+    public PerlinWorld(float[][] tileMap, float[][] biomeMap, float[][] treeMap, int size) {
         this.tileMap = tileMap;
         this.biomeMap = biomeMap;
         this.treeMap = treeMap;
@@ -104,26 +101,6 @@ public class World extends JPanel {
                 g.fillRect((int)(player.x - cam.x) * size - size, (int)(player.y - cam.y) * size - size, size * 2, size * 2);
             }
         }
-    }
-
-    public void createPlayer(Player player) {
-        this.player = player;
-        player.setWorld(this);
-        this.cam = new Camera(player, this.getWidth() / worldScale, this.getHeight() / worldScale);
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Camera getCam() {
-        return cam;
-    }
-
-    public void setWorldScale(float worldScale) {
-        this.worldScale = worldScale;
-        getCam().width = this.getWidth() / worldScale;
-        getCam().height = this.getHeight() / worldScale;
     }
 
     public int getBiome(float[][] biomeMap, int x, int y) {
