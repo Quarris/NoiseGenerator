@@ -5,7 +5,7 @@ import java.awt.*;
 public class SimplexWorld extends AbstractWorld {
 
     private long seed;
-    private final int LOADED_CHUNK_SIZE = 7;
+    private final int LOADED_CHUNK_SIZE = 9;
     protected Chunk[] loadedChunks;
     protected main.java.assets.Graphics graphics;
 
@@ -23,15 +23,20 @@ public class SimplexWorld extends AbstractWorld {
     @Override
     protected void paintComponent(Graphics g) {
         graphics.setGraphics(g);
-        int size = 2;
         super.paintComponent(g);
         for (Chunk chunk : loadedChunks) {
             for (int x = 0; x < Chunk.CHUNK_SIZE; x++) {
                 for (int y = 0; y < Chunk.CHUNK_SIZE; y++) {
-                    chunk.getTile(x, y).getRenderer().render(graphics, (chunk.getX()*Chunk.CHUNK_SIZE+x)*size, (chunk.getY()*Chunk.CHUNK_SIZE+y)*size, chunk.getTile(x, y), size);
+                    chunk.getTile(x, y).getRenderer().render(graphics, (chunk.getX()*Chunk.CHUNK_SIZE+x)*worldScale, (chunk.getY()*Chunk.CHUNK_SIZE+y)*worldScale, chunk.getTile(x, y), worldScale);
                 }
             }
         }
+    }
+
+    @Override
+    public void setWorldScale(int scale) {
+        this.worldScale = scale;
+        repaint();
     }
 
     public Chunk[] getLoadedChunks() {

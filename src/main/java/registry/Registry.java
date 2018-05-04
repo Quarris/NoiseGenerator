@@ -2,6 +2,8 @@ package main.java.registry;
 
 import main.java.assets.Texture;
 
+import javax.xml.soap.Text;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 

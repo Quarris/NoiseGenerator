@@ -9,6 +9,7 @@ public class Texture {
 
     private int[] pixels;
     private int width, height;
+    public BufferedImage image;
 
     public Texture(String path) {
         BufferedImage image = null;
@@ -17,6 +18,7 @@ public class Texture {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.image = image;
         this.width = image.getWidth();
         this.height = image.getHeight();
         this.pixels = new int[getWidth()*getHeight()];

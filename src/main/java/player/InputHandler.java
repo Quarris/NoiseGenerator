@@ -47,6 +47,12 @@ public class InputHandler implements KeyListener {
                 newPlayer.y = y;
                 world.createPlayer(newPlayer);
                  break;
+            case '+':
+                world.setWorldScale(world.getWorldScale()+1);
+                System.out.println();
+                break;
+            case '-':
+                world.setWorldScale(Math.max(1, world.getWorldScale()-1));
             default:
                 break;
         }

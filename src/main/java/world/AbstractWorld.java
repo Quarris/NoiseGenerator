@@ -8,7 +8,7 @@ public abstract class AbstractWorld extends JPanel {
 
     protected Player player;
     protected Camera cam;
-    protected float worldScale = 1;
+    protected int worldScale = 1;
 
     public AbstractWorld() {
 
@@ -18,6 +18,10 @@ public abstract class AbstractWorld extends JPanel {
         this.worldScale = worldScale;
         getCam().width = this.getWidth() / worldScale;
         getCam().height = this.getHeight() / worldScale;
+    }
+
+    public int getWorldScale() {
+        return worldScale;
     }
 
     public Player getPlayer() {

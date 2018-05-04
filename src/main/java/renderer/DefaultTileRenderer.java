@@ -15,6 +15,7 @@ public class DefaultTileRenderer implements ITileRenderer<Tile> {
 
     @Override
     public void render(Graphics g, int renderX, int renderY, Tile tile, int size) {
-        g.draw(AssetManager.getTexture(tile.getName()), renderX, renderY, size);
+        //g.draw(AssetManager.getTexture(tile.getName()), renderX, renderY, size);
+        g.drawImage(AssetManager.getTexture(tile.getName()), renderX, renderY, size);
     }
 }
