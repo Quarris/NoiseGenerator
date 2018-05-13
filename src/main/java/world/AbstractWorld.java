@@ -15,7 +15,7 @@ public abstract class AbstractWorld extends JPanel {
     }
 
     public void setWorldScale(int scale) {
-        this.worldScale = worldScale;
+        this.worldScale = scale;
         getCam().width = this.getWidth() / worldScale;
         getCam().height = this.getHeight() / worldScale;
     }

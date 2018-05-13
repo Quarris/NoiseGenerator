@@ -2,11 +2,12 @@ package main.java.world;
 
 import main.java.noise.SimplexNoise;
 import main.java.tiles.Tile;
+import main.java.util.Pos;
 import main.java.util.WorldUtil;
 
 public class Chunk {
 
-    private int x, y;
+    private Pos pos;
     private SimplexWorld world;
     protected Tile[] tiles;
 
@@ -14,8 +15,7 @@ public class Chunk {
 
     public Chunk(SimplexWorld world, int x, int y) {
         float divider = 100;
-        this.x = x;
-        this.y = y;
+        this.pos = new Pos(x, y);
         this.world = world;
         this.tiles = new Tile[CHUNK_SIZE*CHUNK_SIZE];
         Chunk chunk = this;
@@ -48,11 +48,15 @@ public class Chunk {
         return tiles;
     }
 
+    public Pos getPos() {
+        return pos;
+    }
+
     public int getX() {
-        return x;
+        return pos.getX();
     }
 
     public int getY() {
-        return y;
+        return pos.getY();
     }
 }
