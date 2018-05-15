@@ -11,6 +11,7 @@ public class NoiseGenerator extends JFrame {
 
     public int width;
     public int height;
+    public static InputHandler inputs;
 
     public NoiseGenerator(int width, int height) {
         this.width = width;
@@ -28,14 +29,13 @@ public class NoiseGenerator extends JFrame {
         String stringSeed = JOptionPane.showInputDialog("Insert Integer Seed: ");
         Long seed = stringSeed.isEmpty() ? new Random().nextLong() : Long.parseLong(stringSeed);
         final SimplexWorld world = new SimplexWorld(seed);
+        inputs = new InputHandler(world);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override public void run() {
-                window.addKeyListener(new InputHandler(world));
-                window.add(world);
-                window.getContentPane().revalidate();
-                world.repaint();
-            }
+        SwingUtilities.invokeLater(() -> {
+            window.addKeyListener(inputs);
+            window.add(world);
+            window.getContentPane().revalidate();
+            world.repaint();
         });
 
 
