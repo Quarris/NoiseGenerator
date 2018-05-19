@@ -1,5 +1,7 @@
 package main.java.player;
 
+import main.java.tiles.Tile;
+import main.java.util.Direction;
 import main.java.util.Pos;
 import main.java.util.WorldUtil;
 import main.java.world.Chunk;
@@ -12,11 +14,12 @@ public class Player {
     private int lastX;
     private int lastY;
     public String name;
-    private Camera cam;
     private SimplexWorld world;
+    public Direction facing;
 
     public Player(String name) {
         this.name = name;
+        this.facing = Direction.UP;
     }
 
     public void setPos(int x, int y) {
@@ -27,16 +30,18 @@ public class Player {
         loadChunks();
     }
 
-    public Camera getCam() {
-        return cam;
-    }
-
-    public void setCam(Camera cam) {
-        this.cam = cam;
-    }
-
-    public void move(int movX, int movY) {
-        setPos(this.x + movX, this.y + movY);
+    public void move(Direction dir, int amount) {
+        Tile tile = world.getTile(x + dir.x*amount, y + dir.y*amount);
+        System.out.println("("+(x + dir.x*amount)+", "+(y + dir.y*amount)+")"+tile.getName());
+        if (tile.canCollide) {
+            setPos(this.x + dir.x*amount, this.y + dir.y*amount);
+            for (Direction direction : Direction.ADJACENTS) {
+                if (dir == direction) {
+                    this.facing = dir;
+                    break;
+                }
+            }
+        }
     }
 
     public void setWorld(SimplexWorld world) {

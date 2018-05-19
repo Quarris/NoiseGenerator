@@ -2,19 +2,18 @@ package main.java.tiles;
 
 import main.java.assets.Texture;
 
-import java.awt.*;
 import main.java.renderer.DefaultTileRenderer;
 import main.java.renderer.ITileRenderer;
 import main.java.registry.Registry;
 
 public class Tile {
 
-    protected Color color;
     protected String name;
     private ITileRenderer<Tile> renderer;
+    public boolean canCollide;
 
-    public Tile(String name, Color color) {
-        this.color = color;
+    public Tile(String name) {
+        canCollide = true;
         this.name = name;
         this.renderer = createRenderer(name);
     }
@@ -24,8 +23,9 @@ public class Tile {
         return this;
     }
 
-    public Color getColor() {
-        return color;
+    public Tile setCollision(boolean collision) {
+        canCollide = collision;
+        return this;
     }
 
     public String getName() {

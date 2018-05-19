@@ -11,13 +11,13 @@ public class WorldUtil {
         if (height < 0.49) {
             return Tiles.water;
         }
-        else if (height < 0.57) {
+        else if (height < 0.53) {
             return Tiles.sand;
         }
-        else if (height < 0.85) {
+        else if (height < 0.7) {
             return Tiles.grass;
         }
-        else if (height < 0.93) {
+        else if (height < 0.78) {
             return Tiles.stone;
         }
         else {

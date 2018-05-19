@@ -23,7 +23,7 @@ public class NoiseGenerator extends JFrame {
 
     public static void main(String[] args) {
         Tiles.init();
-        final NoiseGenerator window = new NoiseGenerator(2000, 2000);
+        final NoiseGenerator window = new NoiseGenerator(680, 400);
         window.setTitle("Noise");
 
         String stringSeed = JOptionPane.showInputDialog("Insert Integer Seed: ");

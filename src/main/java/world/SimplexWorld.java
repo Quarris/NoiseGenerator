@@ -1,9 +1,9 @@
 package main.java.world;
 
-import main.java.NoiseGenerator;
-import main.java.player.Camera;
 import main.java.player.Player;
+import main.java.tiles.Tile;
 import main.java.util.Pos;
+import main.java.util.WorldUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,13 +40,19 @@ public class SimplexWorld extends JPanel {
             }
         }
         else {
+            int playerX = WorldUtil.getChunkGridFromPos(player.x, player.y).x;
+            int playerY = WorldUtil.getChunkGridFromPos(player.x, player.y).y;
             for (Map.Entry<Pos, Chunk> chunkPos : loadedChunks.entrySet()) {
                 Chunk chunk = chunkPos.getValue();
                 g.setColor(Color.RED);
-                g.fillRect(getWidth()/2 - worldScale, getHeight()/2 - worldScale, 2*worldScale, 2*worldScale);
+                g.fillRect(getWidth()/2 - worldScale, getHeight()/2 - worldScale, worldScale, worldScale);
+                g.setColor(Color.GREEN);
+                g.drawLine(getWidth()/2 - worldScale/2, getHeight()/2 - worldScale/2, getWidth()/2 - worldScale/2 + player.facing.x * worldScale/2, getHeight()/2 - worldScale/2 - player.facing.y*worldScale/2);
+                g.setColor(Color.BLACK);
+                g.drawRect((chunk.getX()-playerX) * Chunk.CHUNK_SIZE, (chunk.getY()-playerY) * Chunk.CHUNK_SIZE, Chunk.CHUNK_SIZE, Chunk.CHUNK_SIZE);
                 for (int x = 0; x < Chunk.CHUNK_SIZE; x++) {
                     for (int y = 0; y < Chunk.CHUNK_SIZE; y++) {
-                        chunk.getTile(x, y).getRenderer().render(graphics,  getWidth()/2 + ((chunk.getX() * Chunk.CHUNK_SIZE + x) * worldScale) - 72 * worldScale, getHeight()/2 + ((chunk.getY() * Chunk.CHUNK_SIZE + y) * worldScale) - 71 * worldScale, chunk.getTile(x, y), worldScale);
+                        chunk.getTile(x, y).getRenderer().render(graphics, getWidth()/2 + ((chunk.getX() - playerX) * Chunk.CHUNK_SIZE + (x - player.x%Chunk.CHUNK_SIZE)) * worldScale, getHeight()/2 + ((chunk.getY()-playerY) * Chunk.CHUNK_SIZE + (y-player.y%Chunk.CHUNK_SIZE)) * worldScale, chunk.getTile(x, y), worldScale);
                     }
                 }
             }
@@ -56,6 +62,12 @@ public class SimplexWorld extends JPanel {
     public void setWorldScale(int scale) {
         this.worldScale = scale;
         repaint();
+    }
+
+    public Tile getTile(int x, int y) {
+        Pos chunkPos = WorldUtil.getChunkGridFromPos(x, y);
+        System.out.println("Chunk("+chunkPos.x+", "+chunkPos.y+"), Tile("+Math.abs(x%Chunk.CHUNK_SIZE)+", "+Math.abs(y%Chunk.CHUNK_SIZE)+")");
+        return getChunk(WorldUtil.getChunkGridFromPos(x, y)).getTile(x%Chunk.CHUNK_SIZE, Math.abs(y%Chunk.CHUNK_SIZE));
     }
 
     public int getWorldScale() {
@@ -90,8 +102,6 @@ public class SimplexWorld extends JPanel {
     public void spawnPlayer(Player player) {
         this.player = player;
         player.setWorld(this);
-        Camera cam = new Camera(player, 640, 480);
-        player.setCam(cam);
         player.loadChunks();
     }
 }

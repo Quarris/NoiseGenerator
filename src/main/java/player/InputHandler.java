@@ -1,5 +1,6 @@
 package main.java.player;
 
+import main.java.util.Direction;
 import main.java.world.SimplexWorld;
 
 import javax.swing.*;
@@ -22,16 +23,16 @@ public class InputHandler implements KeyListener {
                 world.setWorldScale(Integer.parseInt(JOptionPane.showInputDialog("Set java.java.worldmain.PerlinWorld Scale: ")));
                 break;
             case 'w':
-                player.move(0, -100);
+                player.move(Direction.UP, 1);
                 break;
             case 's':
-                player.move(0, 100);
+                player.move(Direction.DOWN, 1);
                 break;
             case 'a':
-                player.move(-100, 0);
+                player.move(Direction.LEFT, 1);
                 break;
             case 'd':
-                player.move(100, 0);
+                player.move(Direction.RIGHT, 1);
                 break;
             case ' ':
                 int x = Integer.parseInt(JOptionPane.showInputDialog("Position X: "));
@@ -41,17 +42,28 @@ public class InputHandler implements KeyListener {
                 newPlayer.y = y;
                 world.spawnPlayer(newPlayer);
                 this.player = newPlayer;
-                 break;
+                break;
             case '=':
-                world.setWorldScale(world.getWorldScale()*2);
+                world.setWorldScale(world.getWorldScale() * 2);
                 System.out.println(world.getWorldScale());
                 break;
             case '-':
-                world.setWorldScale(Math.max(1, world.getWorldScale()/2));
+                world.setWorldScale(Math.max(1, world.getWorldScale() / 2));
+            case 'W':
+                player.move(Direction.UP, 16);
+                break;
+            case 'S':
+                player.move(Direction.DOWN, 16);
+                break;
+            case 'A':
+                player.move(Direction.LEFT, 16);
+                break;
+            case 'D':
+                player.move(Direction.RIGHT, 16);
+                break;
             default:
                 break;
         }
-        System.out.println("Pressed Key " + e + " - " + e.getKeyCode());
         world.repaint();
     }
 
